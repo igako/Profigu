@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulação de Preço Profigu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            border: 5px solid white;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 18px;
+            text-align: left;
+        }
+        p {
+            font-size: 16px;
+            text-align: center;
+        }
+        form {
+            text-align: left;
+        }
+        .profigu-link {
+            margin-top: 20px;
+            font-weight: bold;
+            display: block;
+            text-align: right;
+        }
+        .logo-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .logo-image {
+            width: 50%;
+            max-width: 300px;
+        }
+    </style>
+    <script>
+        function selecionarApenasUm(checkbox) {
+            var checkboxes = document.getElementsByName('metodoPagamento');
+            checkboxes.forEach(function(currentCheckbox) {
+                if (currentCheckbox !== checkbox) {
+                    currentCheckbox.checked = false;
+                }
+            });
+
+            calcularValor();
+        }
+
+        function limparValoresCalculados() {
+            document.getElementById('parcelaMensal').innerHTML = "";
+            document.getElementById('valorTotal').innerHTML = "";
+            document.getElementById('valorNovo').innerHTML = "";
+            document.getElementById('economia').innerHTML = "";
+            document.getElementById('semanasPorMes').innerHTML = "";
+        }
+
+        function calcularValor() {
+            var numEncontros = parseInt(document.querySelector('select[name="numEncontros"]').value);
+            var horasEncontro = parseInt(document.querySelector('select[name="horasEncontro"]').value);
+            var metodoPagamento = document.querySelector('input[name="metodoPagamento"]:checked');
+
+            if (!metodoPagamento) {
+                limparValoresCalculados();
+                return;
+            }
+
+            var desconto = metodoPagamento.value === "aVista" ? 0.85 : 1;
+            var descontoHoras = 1;
+
+            if (horasEncontro === 2) {
+                descontoHoras = 0.8;
+            } else if (horasEncontro === 3) {
+                descontoHoras = 0.75;
+            } else if (horasEncontro === 4) {
+                descontoHoras = 0.7;
+            }
+
+            var valorBase = (numEncontros * horasEncontro * 48 * 13);
+            var valorTotal = (valorBase * desconto * descontoHoras).toFixed(2);
+            var parcelaMensal = (valorTotal/3).toFixed(2);
+            
+            document.getElementById('parcelaMensal').innerHTML = "Parcela Mensal (3 vezes): R$" + parcelaMensal;
+            document.getElementById('valorTotal').innerHTML = "Valor Total: R$" + valorTotal;
+
+            var valorNovo = 50 * horasEncontro * numEncontros * 13;
+            var economia = parseFloat(valorNovo) - parseFloat(valorTotal);
+            document.getElementById('valorNovo').innerHTML = "Quanto pagaria sem o Contrato: R$" + valorNovo.toFixed(2);
+            document.getElementById('economia').innerHTML = "Economiza: - R$" + economia.toFixed(2);
+           
+            document.getElementById('semanasPorMes').innerHTML = "O cálculo considera a duracão total média de 13 semanas";
+        }
+    </script>
+</head>
+<body>
+    <div class="logo-container">
+        <img class="logo-image" src="logo.png" alt="Logo da Profigu">
+    </div>
+    
+    <h2>Simulação de Preço Profigu</h2>
+    <form>
+        <h3>Método de Pagamento:</h3>
+        <label>
+            <input type="radio" name="metodoPagamento" value="aVista" onclick="selecionarApenasUm(this)"> À Vista / Pix
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="metodoPagamento" value="cartaoCredito" onclick="selecionarApenasUm(this)"> Cartão de Crédito
+        </label>
+        
+        <h3>Opções de Encontro:</h3>
+        <label>
+            Número de Encontros Semanais:
+            <select name="numEncontros" onchange="calcularValor()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </label>
+        <br>
+        <label>
+            Quantidade de Horas do Encontro:
+            <select name="horasEncontro" onchange="calcularValor()">
+                <option value="1">1 hora</option>
+                <option value="2">2 horas</option>
+                <option value="3">3 horas</option>
+                <option value="4">4 horas</option>
+            </select>
+        </label>
+    </form>
+    
+    <p id="parcelaMensal"></p>
+    <p id="valorTotal"></p>
+    <p id="valorNovo"></p>
+    <p id="economia"></p>
+    <p id="semanasPorMes"></p>
+    <div class="profigu-link"><a href="https://profigu.art.blog" target="_blank">@profigu</a></div>
+</body>
+</html>
