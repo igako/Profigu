@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simulação de Preço Profigu</title>
+    <title>Simulação do Plano Profigu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -88,11 +88,11 @@
             var parcelaMensal = (valorTotal/3).toFixed(2);
             
             document.getElementById('parcelaMensal').innerHTML = "Parcela Mensal (3 vezes): R$" + parcelaMensal;
-            document.getElementById('valorTotal').innerHTML = "Valor Total: R$" + valorTotal;
+            document.getElementById('valorTotal').innerHTML = "Valor Total com o Plano: R$" + valorTotal;
 
             var valorNovo = 50 * horasEncontro * numEncontros * 13;
             var economia = parseFloat(valorNovo) - parseFloat(valorTotal);
-            document.getElementById('valorNovo').innerHTML = "Quanto pagaria sem o Contrato: R$" + valorNovo.toFixed(2);
+            document.getElementById('valorNovo').innerHTML = "Quanto pagaria sem o Plano: R$" + valorNovo.toFixed(2);
             document.getElementById('economia').innerHTML = "Economiza: - R$" + economia.toFixed(2);
            
             document.getElementById('semanasPorMes').innerHTML = "O cálculo considera a duracão total média de 13 semanas";
@@ -104,7 +104,7 @@
         <img class="logo-image" src="logo.png" alt="Logo da Profigu">
     </div>
     
-    <h2>Simulação de Preço Profigu</h2>
+    <h2>Simulação do Plano Profigu</h2>
     <form>
         <h3>Método de Pagamento:</h3>
         <label>
