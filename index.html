@@ -41,6 +41,12 @@
             width: 50%;
             max-width: 300px;
         }
+        .parcela-mensal {
+            background-color: #0077b3; /* Azul mais escuro */
+            font-weight: bold;
+            font-size: 21px; /* Aumento da fonte em 0.5 */
+            padding: 10px; /* Espaçamento interno para destacar */
+        }
     </style>
     <script>
         function selecionarApenasUm(checkbox) {
@@ -92,7 +98,7 @@
 
             var valorNovo = 50 * horasEncontro * numEncontros * 13;
             var economia = parseFloat(valorNovo) - parseFloat(valorTotal);
-            document.getElementById('valorNovo').innerHTML = "Quanto pagaria sem o Plano: R$" + valorNovo.toFixed(2);
+            document.getElementById('valorNovo').innerHTML = "Pagaria sem o Plano: R$" + valorNovo.toFixed(2);
             document.getElementById('economia').innerHTML = "Economiza: - R$" + economia.toFixed(2);
            
             document.getElementById('semanasPorMes').innerHTML = "O cálculo considera a duracão total média de 13 semanas";
@@ -136,7 +142,7 @@
         </label>
     </form>
     
-    <p id="parcelaMensal"></p>
+    <p class="parcela-mensal" id="parcelaMensal"></p>
     <p id="valorTotal"></p>
     <p id="valorNovo"></p>
     <p id="economia"></p>
