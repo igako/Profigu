@@ -4,50 +4,16 @@
     <title>Simulação do Plano Profigu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            text-align: center;
-            background-color: black;
-            color: white;
-            padding: 20px;
-            margin: 0 auto; /* Center horizontally */
-        										max-width: 800px;
-            border: 5px solid white;
-        }
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        h3 {
-            font-size: 18px;
-            text-align: left;
-        }
-        p {
-            font-size: 16px;
-            text-align: center;
-        }
-        form {
-            text-align: left;
-        }
-        .profigu-link {
-            margin-top: 20px;
-            font-weight: bold;
-            display: block;
-            text-align: right;
-        }
-        .logo-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-        .logo-image {
-            width: 50%;
-            max-width: 300px;
-        }
-        .parcela-mensal {
-            background-color: #0077b3; /* Azul mais escuro */
-            font-weight: bold;
-            font-size: 21px; /* Aumento da fonte em 0.3 */
-            padding: 10px; /* Espaçamento interno para destacar */
-        }
+        body {text-align: center; background-color: black; color: white; padding: 20px; margin: 0 auto; max-width: 800px; border: 5px solid white;}
+        h2 {font-size: 24px; margin-bottom: 20px;}
+        h3 {font-size: 18px; text-align: left;}
+        p {font-size: 16px; text-align: center;}
+        form {text-align: left;}
+        .profigu-link {margin-top: 20px; font-weight: bold; display: block; text-align: right;}
+        .logo-container {text-align: center; margin-top: 25px;}
+        .logo-image {width: 50%; max-width: 300px;}
+        .parcela-mensal {background-color: #0077b3; font-weight: bold; font-size: 21px; padding: 10px;}
+        .hidden {display: none;}
     </style>
     <script>
         function selecionarApenasUm(checkbox) {
@@ -57,7 +23,6 @@
                     currentCheckbox.checked = false;
                 }
             });
-
             calcularValor();
         }
 
@@ -93,7 +58,7 @@
             var valorBase = (numEncontros * horasEncontro * 48 * 13);
             var valorTotal = (valorBase * desconto * descontoHoras).toFixed(2);
             var parcelaMensal = (valorTotal/3).toFixed(2);
-            
+
             document.getElementById('parcelaMensal').innerHTML = "Parcela Mensal (3 vezes): R$" + parcelaMensal;
             document.getElementById('valorTotal').innerHTML = "Valor Total com o Plano: R$" + valorTotal;
 
@@ -101,7 +66,8 @@
             var economia = parseFloat(valorNovo) - parseFloat(valorTotal);
             document.getElementById('valorNovo').innerHTML = "Pagaria sem o Plano: R$" + valorNovo.toFixed(2);
             document.getElementById('economia').innerHTML = "Economiza: - R$" + economia.toFixed(2);
-           
+            document.getElementById('economia').classList.remove('hidden');
+
             document.getElementById('semanasPorMes').innerHTML = "O cálculo considera a duracão total média de 13 semanas";
         }
     </script>
@@ -110,7 +76,7 @@
     <div class="logo-container">
         <img class="logo-image" src="logo.png" alt="Logo da Profigu">
     </div>
-    
+
     <h2>Simulação do Plano Profigu</h2>
     <form>
         <h3>Método de Pagamento:</h3>
@@ -121,7 +87,7 @@
         <label>
             <input type="radio" name="metodoPagamento" value="cartaoCredito" onclick="selecionarApenasUm(this)"> Cartão de Crédito
         </label>
-        
+
         <h3>Opções de Encontro:</h3>
         <label>
             Número de Encontros Semanais:
@@ -142,11 +108,11 @@
             </select>
         </label>
     </form>
-    
+
     <p class="parcela-mensal" id="parcelaMensal"></p>
-    <p id="valorTotal"></p>
-    <p id="valorNovo"></p>
-    <p id="economia"></p>
+    <p id="valorTotal" class="hidden"></p>
+    <p id="valorNovo" class="hidden"></p>
+    <p id="economia" class="hidden"></p>
     <p id="semanasPorMes"></p>
     <div class="profigu-link"><a href="https://profigu.art.blog" target="_blank">@profigu</a></div>
 </body>
