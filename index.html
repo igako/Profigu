@@ -63,7 +63,7 @@
             document.getElementById('valorTotal').innerHTML = "Valor Total com o Plano: R$" + valorTotal;
 
             var valorNovo = 50 * horasEncontro * numEncontros * 13;
-            var economia = parseFloat(valorNovo) - parseFloat(valorTotal);
+            var economia = (parseFloat(valorNovo) - parseFloat(valorTotal))/3;
             document.getElementById('valorNovo').innerHTML = "Pagaria sem o Plano: R$" + valorNovo.toFixed(2);
             document.getElementById('economia').innerHTML = "Economiza: - R$" + economia.toFixed(2);
             document.getElementById('economia').classList.remove('hidden');
